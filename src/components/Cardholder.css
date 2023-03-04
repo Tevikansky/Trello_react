@@ -1,0 +1,27 @@
+.cardholder {
+  max-width: 300px;
+  width: 100%;
+  background-color: aliceblue;
+  border-radius: 10px;
+  box-shadow: 10px 5px 5px rgb(199, 180, 180);
+  margin-right: 10px;
+  padding: 10px;
+  height: fit-content;
+}
+.cardholder__title {
+  margin: 0;
+  margin-bottom: 5px;
+  cursor: pointer;
+  width: fit-content;
+}
+.create-card {
+  margin-top: 20px;
+  color: grey;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 5px;
+  cursor: pointer;
+}
+.create-card:hover {
+  background-color: rgb(206, 202, 202);
+}
