@@ -3,9 +3,9 @@ import "./Card.css";
 
 
 interface CardProps {
+  id: number;
   title: string;
   description?: string;
-
 }
 
 export function Card({ title}: CardProps) {

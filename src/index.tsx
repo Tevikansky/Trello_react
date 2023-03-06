@@ -5,14 +5,16 @@ import App from "./App";
 import Cardholder from "./components/Cardholder";
 import { Card } from "./components/Card";
 
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <App>
       <Cardholder title="TODO">
-        <Card title="Test"/>
+        <Card id={1} title="Test" />
       </Cardholder>
       <Cardholder title="In Progress"></Cardholder>
       <Cardholder title="Testing"></Cardholder>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Input } from "./Input";
 import "./Cardholder.css";
 
 interface CardholderProps {
@@ -7,11 +8,29 @@ interface CardholderProps {
 }
 
 function Cardholder({ title, children }: CardholderProps) {
+  const [call, setCall] = useState(false);
+  // const open = () => setCall(true);
+  // const close = () => setCall(false);
+
+  const [collumnTitle, setCollumnTitle] = useState(title);
+  
+
+ 
+
   return (
     <div className="cardholder">
-      <h2 className="cardholder__title">{title}</h2>
+      {!call && (
+        <h2 className="cardholder__title" 
+        onClick= {setCall()=>{setCall(true)}}
+        >
+          {collumnTitle}
+        </h2>
+      )}
+      {call && <Input placeholder={title} close={setCall(false)} setCollumnTitle={setCollumnTitle} />}
       <div className="cards-wrapper">{children}</div>
-      <div className="create-card"> + Add card </div>
+      <div className="create-card" onClick={() => {}}>
+        + Add card
+      </div>
     </div>
   );
 }
