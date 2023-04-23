@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
-import Cardholder from "./components/Cardholder";
-import { Card } from "./components/Card";
+import "./index.css";
+
+
 
 
 const root = ReactDOM.createRoot(
@@ -12,13 +12,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App>
-      <Cardholder title="TODO">
-        <Card id={1} title="Test" />
-      </Cardholder>
-      <Cardholder title="In Progress"></Cardholder>
-      <Cardholder title="Testing"></Cardholder>
-      <Cardholder title="Done"></Cardholder>
-    </App>
+    <App/>
   </React.StrictMode>
 );

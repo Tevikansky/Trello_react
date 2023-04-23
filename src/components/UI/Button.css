@@ -1,0 +1,18 @@
+button {
+  background-color: rgb(155, 155, 155);
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 2px rgb(199, 180, 180);
+  color: rgb(49, 54, 54);
+  outline: 0;
+  border: none;
+  min-width: 37px;
+  margin-right: 3px;
+  cursor: pointer;
+}
+.btn__confirm {
+  background-color: rgb(116, 228, 106);
+}
+.btn__cancel {
+  background-color: rgb(214, 62, 62);
+}
