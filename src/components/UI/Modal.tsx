@@ -1,64 +1,77 @@
-import React, { useState} from "react";
+import { useState } from "react";
 import { Button } from "./Button";
 import "./Modal.css";
 import { Input } from "../Input/Input";
-import { CardProps } from "../Card/Card";
 
 interface ModalProps {
+  startTitle?: string
   title: string;
-  useDescription?: string;
-  openModal: () => void;
-  setCards?: (e:string) => void;
+  description: string;
+  changeDescription?: (e: string) => void;
+  openModal?: () => void;
+  setCards?: (e: string) => void;
 }
 
-export const Modal = ({ openModal, title, setCards}: ModalProps) => {
-  const [modalTitle, setmodalTitle] = useState<string>(title)
-
+export const Modal = ({
+  startTitle,
+  openModal,
+  title,
+  setCards,
+  changeDescription,
+  description,
+}: ModalProps) => {
   const [comment, setComment] = useState<boolean>(false);
 
-  const [descriptionTitle, setDescriptionTitle] =
-    useState<string>("description");
-
-  const [description, setDescription] = useState<boolean>(false);
+  const [descriptionWindow, setDescription] = useState<boolean>(false);
   const [call, setCall] = useState<boolean>(false);
 
   const calToggle = () => setCall(!call);
-  const changeDescription = () => setDescription(!description);
+  const openDescription = () => setDescription(!descriptionWindow);
   const createComment = () => setComment(!comment);
 
   return (
     <>
       <div className="modal">
         <div className="modal-dialog">
-          {!call ? (
+
+          {startTitle ? (<>
+            <h2>{startTitle}</h2>
+          <Input
+              inputValue={title}
+              close={openModal}
+              setTitle={setCards}
+              placeholder='Please enter your name'
+            />
+            </>) : (<>{!call ? (
             <h2 className="title" onClick={calToggle}>
-              {modalTitle}
+              {title}
             </h2>
-          ) 
-          : (
+          ) : (
             <Input
-              inputValue={modalTitle}
+              inputValue={title}
               close={calToggle}
               setTitle={setCards}
               placeholder="Enter name title:"
             />
-          )
-          }
-
-          <div className="close-modal">
+          )}</>)}
+          
+          
+          
+          {!startTitle && (<>
+            <div className="close-modal">
             <Button onClick={openModal}>X</Button>
           </div>
           <div className="discription">
-            {!description ? (
-              <p className="discription-title" onClick={changeDescription}>
-                {descriptionTitle}
+            {!descriptionWindow ? (
+              <p className="discription-title" onClick={openDescription}>
+                {description}
               </p>
             ) : (
               <Input
                 placeholder="Enter description:"
-                inputValue={descriptionTitle}
-                close={changeDescription}
-                setTitle={setDescriptionTitle}
+                inputValue={description}
+                close={openDescription}
+                setTitle={changeDescription}
               ></Input>
             )}
           </div>
@@ -75,7 +88,8 @@ export const Modal = ({ openModal, title, setCards}: ModalProps) => {
                 ></Input>
               )}
             </div>
-          </div>
+          </div></>)}
+          
         </div>
       </div>
     </>

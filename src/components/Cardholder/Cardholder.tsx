@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Card } from "../Card/Card";
-import { Input } from "../Input/Input";
 import { Modal } from "../UI/Modal";
 import "./Cardholder.css";
+import { CardholderTitle } from "./CardholderTitle";
+import CardholderCardAdd from "./CardholderCardAdd";
 
-interface CardholderProps {
+export interface CardholderProps {
   title: string;
 }
 
@@ -15,22 +16,13 @@ interface CardProps {
 }
 
 function Cardholder({ title }: CardholderProps) {
-  const [call, setCall] = useState<boolean>(false);
-  const [collumnTitle, setCollumnTitle] = useState<string>(title);
   const [modal, setModal] = useState<number>();
-  const [modalTitle, setModalTitle] = useState('');
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalDescription, setModalDescription] = useState("");
   const [cards, setCards] = useState<CardProps[]>([]);
-  const [callCard, setCallCard] = useState<boolean>(false);
   const [callModal, setCallModal] = useState<boolean>(false);
 
   const calToggleModal = () => setCallModal(!callModal);
-  const calToggle = () => setCall(!call);
-  const calToggleCard = () => setCallCard(!callCard);
-
-  const addCard = (value: string) => {
-    setCards((prev) => [...prev, { id: Date.now(), title: value }]);
-    calToggleCard();
-  };
 
   const removeCard = (id: number) => {
     return function () {
@@ -43,7 +35,17 @@ function Cardholder({ title }: CardholderProps) {
     cards.forEach((e) => {
       if (e.id === id) {
         setModal(e.id);
-        setModalTitle(e.title)
+        setModalTitle(e.title);
+        setModalDescription(e.description || 'empty')
+      }
+    });
+  };
+
+  const changeDescription = (description: string) =>  {
+    cards.forEach((e) => {
+      if (e.id === modal) {
+        setModalDescription(description);
+        e.description = description;
       }
     });
   };
@@ -52,30 +54,15 @@ function Cardholder({ title }: CardholderProps) {
     cards.forEach((e) => {
       if (e.id === modal) {
         e.title = title;
-        setModalTitle(title)
+        setModalTitle(title);
       }
-    })
-    setCards((prev) => prev)
-    ;
+    });
+    setCards((prev) => prev);
   };
 
   return (
     <div className="cardholder">
-      {!call && (
-        <h2 className="cardholder__title" onClick={calToggle}>
-          {collumnTitle}
-        </h2>
-      )}
-      {call && (
-        <Input
-          inputValue={collumnTitle}
-          close={calToggle}
-          setTitle={setCollumnTitle}
-          placeholder="Enter name:"
-          about="123"
-        />
-      )}
-
+      <CardholderTitle title={title}></CardholderTitle>
       <div className="cards-wrapper">
         {cards.length > 0 ? (
           cards.map((card) => {
@@ -93,24 +80,14 @@ function Cardholder({ title }: CardholderProps) {
           <p>No tasks! </p>
         )}
       </div>
-      {!callCard && (
-        <div className="create-card" onClick={calToggleCard}>
-          + Add card
-        </div>
-      )}
-      {callCard && (
-        <Input
-          inputValue=""
-          placeholder="Enter card name:"
-          close={calToggleCard}
-          setTitle={addCard}
-        />
-      )}
+      <CardholderCardAdd setCards={setCards}></CardholderCardAdd>
       {callModal && (
         <Modal
           title={modalTitle}
           openModal={calToggleModal}
           setCards={changeTitle}
+          changeDescription={changeDescription}
+          description={modalDescription}
         ></Modal>
       )}
     </div>

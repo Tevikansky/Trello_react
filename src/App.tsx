@@ -1,5 +1,6 @@
 import React from "react";
 import Cardholder from "./components/Cardholder/Cardholder";
+import StartPage from "./components/StartPage/StartPage";
 
 function App() {
   // const [TODOCards, setTODOCards] = useState([
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <main>
+      <StartPage></StartPage>
       <Cardholder title="TODO" />
       <Cardholder title="In Progress" />
       <Cardholder title="Testing" />
